@@ -1,0 +1,27 @@
+
+<h1> List of Users </h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Commodities</th>
+        </tr>
+    </thead>
+    <tbody>
+      <%= will_paginate %>
+      <% @users.each do |u| %>
+        <tr>
+            <td><%= u.name %></td>
+            <td><%= u.email %></td>
+            <td><%= u.lat %>,<%= u.long %></td>
+            <td><%= u.commodities %> to <%= u.user_type%></td>
+        </tr>
+      <% end %>
+      
+    </tbody>
+</table>
+
+<%= will_paginate %>

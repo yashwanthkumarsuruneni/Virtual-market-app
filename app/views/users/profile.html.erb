@@ -1,0 +1,36 @@
+<div class="profile">
+<dl class="dl-horizontal" style="font-size:20px">
+  <dt>
+    <a class="btn btn-large btn-info" href="/edit_profile"> Edit Profile </a>
+  </dt>
+  <dd></dd>
+  <dt>Name</dt>
+  <dd><%= @user.name %></dd>
+  <dt>Email</dt>
+  <dd><%= @user.email %></dd>
+  <dt>Longitude</dt>
+  <dd><%= @user.long %></dd>
+  <dt>Latitude</dt>
+  <dd><%= @user.lat %></dd>
+  <% if @user.user_type == "sell" %>
+    <dt>Commodities <br/> to Sell</dt>
+  <% elsif @user.user_type == "buy" %>
+    <dt>Commodities <br/>to Buy</dt>
+  <% end %>
+  <dd><%= @user.commodities %></dd>  
+</dl>
+<div style="width:100%">
+  <dl class="dl-horizontal" style="font-size:20px">
+    <%= form_tag '/update_commodities' do %>
+      <% if @user.user_type == "sell" %>
+          <b>Enter the commodities you want to sell:</b>
+      <% elsif @user.user_type == "buy" %>
+          <b>Enter the commodities you want to buy:</b>
+      <% end %>
+      <br/>
+      <%= text_field_tag  :commodities %>
+      <%= submit_tag "Update", :class => "btn btn-large btn-sucess" %> 
+    <% end %>
+  </dl>
+</div>
+</div>

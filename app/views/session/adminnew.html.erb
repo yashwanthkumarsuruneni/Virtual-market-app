@@ -1,0 +1,17 @@
+<!-- app/views/sessions/new.html.erb -->
+<h1> Admin Login </h1>
+<%= form_tag '/adminlogin' do %>
+  <dl class="dl-horizontal" style="font-size:20px">
+    
+    <dd></dd>
+    <dt>Email:</dt>
+    <dd><%= text_field_tag :email %></dd>
+    <br/>
+    <dt>Password:</dt>
+    <dd><%= password_field_tag :password %></dd>
+    <dt>
+      <%= submit_tag "Submit" %>
+    </dt>
+  </dl>
+<% end %>
+

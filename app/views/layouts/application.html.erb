@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Market</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<script>
+  var autocomplete;
+  function initialize() {
+    autocomplete = new google.maps.places.Autocomplete(
+      /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+      { types: ['geocode'] });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    });
+  }
+</script>
+  <%= csrf_meta_tags %>
+</head>
+<% if session[:admin]%>
+  <body class="admin">
+<% else %>
+  <body class="<%= current_user.user_type unless current_user.nil? %>">
+<% end %>
+  <div class="page-header">
+        <center> 
+          Virtual Market 
+          <div class ="pull-right"> 
+            <small style="font-size:16px">
+              <% if current_user %>
+                welcome <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
+              <% else %>
+                <%= link_to 'Admin Login', '/adminlogin' %> | <%= link_to 'Login', '/login' %> | <%= link_to 'Buyer Signup', '/signup?type=buy' %> | <%= link_to 'Seller Signup', '/signup?type=sell' %>
+              <% end %>
+            </small>  
+          </div>
+    
+        </center>
+        
+  </div>
+  
+  <%= flash_messages %>
+
+  <%= yield %>
+
+  
+  
+  
+</body>
+</html>

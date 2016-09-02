@@ -1,0 +1,81 @@
+<script>
+  $(document).ready(function(){
+    var inputKey = document.getElementById('autocomplete');
+    var autocomplete = new google.maps.places.Autocomplete(inputKey);
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+          var place = autocomplete.getPlace();
+          lat = place['geometry']['location'].lat();
+          lng = place['geometry']['location'].lng();
+          $("#user_long").val(lng);
+          $("#user_lat").val(lat);
+          //map.setCenter(new google.maps.LatLng(lat, lng));
+     });
+  });
+  
+</script>  
+
+<div class="container" onload="initialize()">
+  <div class="row">
+  	<div class="col-md-6">
+    
+          <%= form_for :user, url: '/users', :defaults => { :input_html => { :class => "form-horizontal" } } do |f| %>
+          <fieldset>
+            <div id="legend">
+              <% if params[:type] == 'buy' %>
+                <legend class="">Buyer Registration</legend>
+              <% elsif params[:type] == 'sell' %>
+                <legend class="">Seller Registration</legend>
+              <% end %>
+              <%= f.hidden_field :user_type, {:value => params[:type] } %>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="username">Name</label>
+              <div class="controls">
+                <%= f.text_field :name, {:class => "form-control input-lg" }%>
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <label class="control-label" for="email">E-mail</label>
+              <div class="controls">
+                <%= f.text_field :email, {:class => "form-control input-lg"} %>
+                <p class="help-block">Please provide your E-mail</p>
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <label class="control-label" for="password">Password</label>
+              <div class="controls">
+                <%= f.password_field :password, {:class => "form-control input-lg"} %>
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <label class="control-label" for="password_confirm">Password (Confirm)</label>
+              <div class="controls">
+                <%= f.password_field :password_confirmation, { :class => "form-control input-lg"} %>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">Location</label>
+              <div class="controls">
+                <input id="autocomplete" placeholder="Enter your address" type="text" class="form-control input-lg"></input>
+                <%= f.hidden_field :long, { :class => "form-control input-lg"} %>
+                <%= f.hidden_field :lat, { :class => "form-control input-lg"} %>
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <!-- Button -->
+              <div class="controls">
+                <button class="btn btn-success">Register</button>
+              </div>
+            </div>
+          </fieldset>
+        <% end %>
+
+    
+    </div> 
+  </div>
+</div>
